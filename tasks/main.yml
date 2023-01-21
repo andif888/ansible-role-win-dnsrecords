@@ -1,0 +1,43 @@
+---
+# tasks file for ansible-role-win-dns-records
+- name: Add DNS Zone
+  community.windows.win_dns_zone:
+    dynamic_update: "{{ item.dynamic_update | default(omit) }}"
+    forwarder_timeout: "{{ item.forwarder_timeout | default(omit) }}"
+    name: "{{ item.name }}"
+    replication: "{{ item.replication | default(omit) }}"
+    state: present
+    type: "{{ item.type | default(omit) }}"
+  loop: "{{ win_dns_zone_add_list }}"
+  when: win_dns_zone_add_list | length > 0
+
+- name: Remove DNS Zone
+  community.windows.win_dns_zone:
+    name: "{{ item }}"
+    state: absent
+  loop: "{{ win_dns_zone_remove_list }}"
+  when: win_dns_zone_remove_list | length > 0
+
+- name: Add DNS Records
+  community.windows.win_dns_record:
+    name: "{{ item.name }}"
+    priority: "{{ item.priority | default(omit) }}"
+    port: "{{ item.port | default(omit) }}"
+    state: present
+    ttl: "{{ item.ttl | default(omit) }}"
+    type: "{{ item.type }}"
+    value: "{{ item.value }}"
+    weight: "{{ item.weight | default(omit) }}"
+    zone: "{{ item.zone }}"
+  loop: "{{ win_dns_records_add_list }}"
+  when: win_dns_records_add_list | length > 0
+
+- name: Remove DNS Records
+  community.windows.win_dns_record:
+    name: "{{ item.name }}"
+    state: absent
+    type: "{{ item.type }}"
+    value: "{{ item.value }}"
+    zone: "{{ item.zone }}"
+  loop: "{{ win_dns_records_remove_list }}"
+  when: win_dns_records_remove_list | length > 0

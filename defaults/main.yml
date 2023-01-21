@@ -1,0 +1,53 @@
+---
+# defaults file for ansible-role-win-dns-records
+# @var win_dns_records_add_list:description: dns records to add
+# @var win_dns_records_add_list:example: >
+# win_dns_records_add_list:
+#   - name: "somehost"
+#     ttl: 180
+#     type: "A"
+#     value: "192.168.232.10"
+#     zone: "acme.local"
+#   - name: "otherhost"
+#     ttl: 180
+#     type: "CNAME"
+#     value: "somehost.acme.local"
+#     zone: "acme.local"
+# @end
+win_dns_records_add_list: []
+
+# @var win_dns_records_remove_list:description: dns records to remove
+# @var win_dns_records_remove_list:example: >
+# win_dns_records_remove_list:
+#   - name: "somehost"
+#     type: "A"
+#     value: "192.168.232.10"
+#     zone: "acme.local"
+#   - name: "otherhost"
+#     type: "CNAME"
+#     value: "somehost.acme.local"
+#     zone: "acme.local"
+# @end
+win_dns_records_remove_list: []
+
+# @var win_dns_zone_add_list:description: dns zones to add
+# @var win_dns_zone_add_list:example: >
+# win_dns_zone_add_list:
+#   - name: "acme.local"
+#     dynamic_update: "secure"
+#     replication: "domain"
+#     type: "primary"
+#   - name: "232.168.192.in-addr.arpa"
+#     dynamic_update: "secure"
+#     replication: "domain"
+#     type: "primary"
+# @end
+win_dns_zone_add_list: []
+
+# @var win_dns_zone_remove_list:description: dns zones to remove
+# @var win_dns_zone_remove_list:example: >
+# win_dns_zone_remove_list:
+#   - "acme.local"
+#   - "232.168.192.in-addr.arpa"
+# @end
+win_dns_zone_remove_list: []
